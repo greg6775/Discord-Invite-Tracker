@@ -13,9 +13,5 @@
        
 **4.** Start the Bot (`python3 bot.py`)
 
-## Heroku (Free Hosting)
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Crypti-x/Discord-Invite-Tracker)
-
-
 ### Any Questions?
 -> Join our [Discord](https://discord.gg/pfTPtXk) and ask in #english and link this repository

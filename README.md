@@ -1,6 +1,6 @@
 # Discord-Invite-Tracker
 
-<a href="https://discord.gg/pfTPtXk"><img src="https://discordapp.com/api/guilds/365116470339960832/embed.png"/></a>
+<a href="https://discord.gg/58My2dM"><img src="https://discordapp.com/api/guilds/448554629282922527/embed.png"/></a>
 <a href="https://github.com/Crypti-x/Discord-Invite-Tracker/fork"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" /></a>
 ## Getting started
 **1.** Install discord.py (rewrite): `python3 -m pip install -U git+https://github.com/Rapptz/discord.py@rewrite`

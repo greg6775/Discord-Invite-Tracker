@@ -1,5 +1,5 @@
-# Copyright: Cryptix 2018.
-# Contact Developer on https://entwickler.cc (Thash#9999)
+# Copyright: GregTCLTK 2018-2020.
+# Contact Developer on https://discord.gg/Vf4zCYn (Skidder#5386)
 
 import discord
 import asyncio

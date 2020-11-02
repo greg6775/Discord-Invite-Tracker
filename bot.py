@@ -7,7 +7,10 @@ import datetime
 import json
 import os
 
-client = discord.Client()
+intents = discord.Intents.default()
+intents.members = True
+client = discord.Client(intents=intents)
+
 cfg = open("config.json", "r")
 tmpconfig = cfg.read()
 cfg.close()

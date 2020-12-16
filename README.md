@@ -3,7 +3,7 @@
 <a href="https://discord.gg/nPwjaJk"><img src="https://discord.com/api/guilds/757966278936756345/embed.png"/></a>
 <a href="https://github.com/GregTCLTK/Discord-Invite-Tracker/fork"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" /></a>
 ## Getting started
-**1.** Install discord.py (rewrite): `python3 -m pip install -U git+https://github.com/Rapptz/discord.py@rewrite`
+**1.** Install discord.py (rewrite): `python3 -m pip install -U git+https://github.com/Rapptz/discord.py`
 
 **2.** [Download](https://github.com/GregTCLTK/Discord-Invite-Tracker/archive/master.zip) & [Unzip](https://www.7-zip.org) the Project
 

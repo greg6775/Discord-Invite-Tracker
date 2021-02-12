@@ -1,5 +1,5 @@
-# Copyright: GregTCLTK 2018-2020.
-# Contact Developer on https://discord.gg/nPwjaJk (Skidder#6775)
+# Copyright: GregTCLTK 2018-2021.
+# Contact Developer on https://discord.gg/nPwjaJk (Skidder#8515 | 401817301919465482)
 
 import discord
 import asyncio
@@ -41,7 +41,7 @@ async def fetch():
                         eme.set_footer(text="ID: " + str(usr.id))
                         eme.timestamp = usr.joined_at
                         eme.add_field(name="Used invite",
-                                      value="Inviter: " + i.inviter.mention + " (`" + i.inviter.name + "#" + i.inviter.discriminator + "`)\nCode: `" + i.code + "`\nUses: `" + str(
+                                      value="Inviter: " + i.inviter.mention + " (`" + i.inviter.name + "#" + i.inviter.discriminator + "` | `" + str(i.inviter.id) + "`)\nCode: `" + i.code + "`\nUses: `" + str(
                                           i.uses) + "`", inline=False)
                         await logs.send(embed=eme)
             tmp.append(tuple((i.code, i.uses)))

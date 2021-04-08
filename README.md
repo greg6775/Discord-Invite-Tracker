@@ -10,7 +10,8 @@
 **3.** Open `config.json` and fill in Discord Bot Token, Server ID and Logs Channel ID.
 
        --> Open the [Developer Portal](https://discord.com/developers/applications/me/create) & follow the [Tutorial](https://i.imgur.com/vR4C6Mh.gif)
-       
+       --> Additionaly activate the `SERVER MEMBERS INTENT` for the bot
+
 **4.** Start the Bot (`python3 bot.py`)
 
 ### Any Questions?

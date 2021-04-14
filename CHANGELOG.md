@@ -9,4 +9,4 @@ This project mostly adheres to [Semantic Versioning](https://semver.org/spec/v2.
 
 ## Added
 ### Internal
-Invite Tracker Cog initiated (15th April 2021)
+Invite Tracker Cog introduced (15th April 2021)

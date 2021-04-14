@@ -22,6 +22,7 @@ invites = {}
 last = ""
 
 async def load_invs():
+    await client.wait_until_ready()
     # load the invites
     for guild in client.guilds:
         self.invites[guild.id] = await guild.invites()

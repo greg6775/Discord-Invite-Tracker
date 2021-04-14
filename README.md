@@ -12,7 +12,21 @@
        --> Open the [Developer Portal](https://discord.com/developers/applications/me/create) & follow the [Tutorial](https://i.imgur.com/vR4C6Mh.gif)\
        --> Additionaly activate the `SERVER MEMBERS INTENT` for the bot
 
-**4.** Start the Bot (`python3 bot.py`)
+**4.** Usage
+#### Bot
+Start the Bot:
+
+`$python3 bot.py`
+
+#### Cog
+Start the Cog
+```py
+bot.load_extension("invite_tracker")
+#in your main bot file
+```
+
+
+
 
 ### Any Questions?
 -> Join our [Discord](https://discord.gg/nPwjaJk) and ask in #general and link this repository

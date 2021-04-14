@@ -21,45 +21,70 @@ logs_channel = config["logs-channel-id"]
 invites = {}
 last = ""
 
+async def load_invs():
+    # load the invites
+    for guild in client.guilds:
+        self.invites[guild.id] = await guild.invites()
 
-async def fetch():
-    global last
-    global invites
-    await client.wait_until_ready()
-    gld = client.get_guild(int(guild_id))
-    logs = client.get_channel(int(logs_channel))
-    while True:
-        invs = await gld.invites()
-        tmp = []
-        for i in invs:
-            for s in invites:
-                if s[0] == i.code:
-                    if int(i.uses) > s[1]:
-                        usr = gld.get_member(int(last))
-                        eme = discord.Embed(description="Just joined the server", color=0x03d692, title=" ")
-                        eme.set_author(name=usr.name + "#" + usr.discriminator, icon_url=usr.avatar_url)
-                        eme.set_footer(text="ID: " + str(usr.id))
-                        eme.timestamp = usr.joined_at
-                        eme.add_field(name="Used invite",
-                                      value="Inviter: " + i.inviter.mention + " (`" + i.inviter.name + "#" + i.inviter.discriminator + "` | `" + str(i.inviter.id) + "`)\nCode: `" + i.code + "`\nUses: `" + str(
-                                          i.uses) + "`", inline=False)
-                        await logs.send(embed=eme)
-            tmp.append(tuple((i.code, i.uses)))
-        invites = tmp
-        await asyncio.sleep(4)
-
+def find_invite_by_code(self, inv_list, code):
+    for inv in inv_list:
+        if inv.code == code:
+            return inv
 
 @client.event
 async def on_ready():
     print("ready!")
     await client.change_presence(activity=discord.Activity(name="joins", type=2))
 
+@client.event
+async def on_member_join(member):
+    global invites
+    logs = client.get_channel(int(logs_channel))
+    invs_before_join = invites[member.guild.id]
+    invs_after_join = await member.guild.invites()
+    eme = Embed(description="Just joined the server", color=0x03d692, title=" ")
+    eme.set_author(name=str(member), icon_url=member.avatar_url)
+    eme.set_footer(text="ID: " + str(member.id))
+    eme.timestamp = member.joined_at
+    for invite in invs_before_join:
+        if invite.uses < find_invite_by_code(invites_after_join, invite.code).uses:
+            eme.add_field(name="Used invite",
+                          value=f"Inviter: {invite.inviter.mention} (`{invite.inviter}` | ` {str(invite.inviter.id)} )`\nCode: `{invite.code} `\nUses: ` {str(invite.uses)}", inline=False)
+    await logs.send(embed=eme)
+    self.invites[member.guild.id] = invs_after_join
+    return
 
 @client.event
-async def on_member_join(meme):
-    global last
-    last = str(meme.id)
+async def on_member_remove(self, member):
+    global invites
+    logs = client.get_channel(int(logs_channel))
+    eme = Embed(description="Just left the server", color=0xff0000, title=" ")
+    eme.set_author(name=str(member), icon_url=member.avatar_url)
+    eme.set_footer(text="ID: " + str(member.id))
+    eme.timestamp = member.joined_at
+    invs_before_rem = invites[member.guild.id]
+    invs_after_rem = await member.guild.invites()
+    for invite in invs_before_rem:
+        if invite.uses > find_invite_by_code(invites_after_rem, invite.code).uses:
+            eme.add_field(name="Used invite",
+                          value=f"Inviter: {invite.inviter.mention} (`{invite.inviter}` | ` {str(invite.inviter.id)} )`\nCode: `{invite.code} `\nUses: ` {str(invite.uses)}", inline=False)
+    await logs.send(embed=eme)
+    self.invites[member.guild.id] = await member.guild.invites()
+    return
+
+@client.event
+async def on_guild_join(self, guild):
+    global invites
+    invites[guild.id] = await guild.invites()
+
+@client.event
+async def on_guild_remove(self, guild):
+    global invites
+    try:
+        invites.pop(guild.id)
+    except:
+        pass
 
 
-client.loop.create_task(fetch())
+client.loop.create_task(load_invs())
 client.run(token)

@@ -19,7 +19,7 @@ Start the Bot:
 `$python3 bot.py`
 
 #### Cog
-Start the Cog
+Add Cog to bot
 ```py
 bot.load_extension("invite_tracker")
 #in your main bot file

@@ -33,7 +33,10 @@ class invite_tracker(commands.Cog):
         await self.bot.wait_until_ready()
         # load the invites
         for guild in self.bot.guilds:
-            self.invites[guild.id] = await guild.invites()
+            try:
+                self.invites[guild.id] = await guild.invites()
+            except:
+                pass
 
     def find_invite_by_code(self, inv_list, code):
         for inv in inv_list:
@@ -43,16 +46,19 @@ class invite_tracker(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         logs = self.bot.get_channel(int(self.logs_channel))
-        invs_before_join = self.invites[member.guild.id]
-        invs_after_join = await member.guild.invites()
         eme = Embed(description="Just joined the server", color=0x03d692, title=" ")
         eme.set_author(name=str(member), icon_url=member.avatar_url)
         eme.set_footer(text="ID: " + str(member.id))
         eme.timestamp = member.joined_at
-        for invite in invs_before_join:
-            if invite.uses < find_invite_by_code(invites_after_join, invite.code).uses:
-                eme.add_field(name="Used invite",
-                              value=f"Inviter: {invite.inviter.mention} (`{invite.inviter}` | ` {str(invite.inviter.id)} )`\nCode: `{invite.code} `\nUses: ` {str(invite.uses)}", inline=False)
+        try:
+            invs_before_join = self.invites[member.guild.id]
+            invs_after_join = await member.guild.invites()
+            for invite in invs_before_join:
+                if invite.uses < find_invite_by_code(invites_after_join, invite.code).uses:
+                    eme.add_field(name="Used invite",
+                                  value=f"Inviter: {invite.inviter.mention} (`{invite.inviter}` | ` {str(invite.inviter.id)} )`\nCode: `{invite.code} `\nUses: ` {str(invite.uses)}", inline=False)
+        except:
+            pass
         await logs.send(embed=eme)
         self.invites[member.guild.id] = invs_after_join
         return
@@ -64,23 +70,32 @@ class invite_tracker(commands.Cog):
         eme.set_author(name=str(member), icon_url=member.avatar_url)
         eme.set_footer(text="ID: " + str(member.id))
         eme.timestamp = member.joined_at
-        invs_before_rem = self.invites[member.guild.id]
-        invs_after_rem = await member.guild.invites()
-        for invite in invs_before_rem:
-            if invite.uses > find_invite_by_code(invites_after_rem, invite.code).uses:
-                eme.add_field(name="Used invite",
-                              value=f"Inviter: {invite.inviter.mention} (`{invite.inviter}` | ` {str(invite.inviter.id)} )`\nCode: `{invite.code} `\nUses: ` {str(invite.uses)}", inline=False)
+        try:
+            invs_before_rem = self.invites[member.guild.id]
+            invs_after_rem = await member.guild.invites()
+            for invite in invs_before_rem:
+                if invite.uses > find_invite_by_code(invites_after_rem, invite.code).uses:
+                    eme.add_field(name="Used invite",
+                                  value=f"Inviter: {invite.inviter.mention} (`{invite.inviter}` | ` {str(invite.inviter.id)} )`\nCode: `{invite.code} `\nUses: ` {str(invite.uses)}", inline=False)
+        except:
+            pass
         await logs.send(embed=eme)
         self.invites[member.guild.id] = await member.guild.invites()
         return
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        self.invites[guild.id] = await guild.invites()
+        try:
+            self.invites[guild.id] = await guild.invites()
+        except:
+            pass
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
-        self.invites.pop(guild.id)
+        try:
+            self.invites.pop(guild.id)
+        except:
+            pass
 
     # @commands.guild_only()
     # @has_permissions(ban_members=True)

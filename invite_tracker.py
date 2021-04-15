@@ -42,7 +42,7 @@ class invite_tracker(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        logs = self.bot.get_channel(int(logs_channel))
+        logs = self.bot.get_channel(int(self.logs_channel))
         invs_before_join = self.invites[member.guild.id]
         invs_after_join = await member.guild.invites()
         eme = Embed(description="Just joined the server", color=0x03d692, title=" ")
@@ -59,7 +59,7 @@ class invite_tracker(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        logs = self.bot.get_channel(int(logs_channel))
+        logs = self.bot.get_channel(int(self.logs_channel))
         eme = Embed(description="Just left the server", color=0xff0000, title=" ")
         eme.set_author(name=str(member), icon_url=member.avatar_url)
         eme.set_footer(text="ID: " + str(member.id))

@@ -23,10 +23,11 @@ invites = {}
 last = ""
 
 async def load_invs():
+    global invites
     await client.wait_until_ready()
     # load the invites
     for guild in client.guilds:
-        self.invites[guild.id] = await guild.invites()
+        invites[guild.id] = await guild.invites()
 
 def find_invite_by_code(self, inv_list, code):
     for inv in inv_list:
@@ -53,7 +54,7 @@ async def on_member_join(member):
             eme.add_field(name="Used invite",
                           value=f"Inviter: {invite.inviter.mention} (`{invite.inviter}` | ` {str(invite.inviter.id)} )`\nCode: `{invite.code} `\nUses: ` {str(invite.uses)}", inline=False)
     await logs.send(embed=eme)
-    self.invites[member.guild.id] = invs_after_join
+    invites[member.guild.id] = invs_after_join
     return
 
 @client.event
@@ -71,7 +72,7 @@ async def on_member_remove(self, member):
             eme.add_field(name="Used invite",
                           value=f"Inviter: {invite.inviter.mention} (`{invite.inviter}` | ` {str(invite.inviter.id)} )`\nCode: `{invite.code} `\nUses: ` {str(invite.uses)}", inline=False)
     await logs.send(embed=eme)
-    self.invites[member.guild.id] = await member.guild.invites()
+    invites[member.guild.id] = await member.guild.invites()
     return
 
 @client.event

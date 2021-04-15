@@ -57,7 +57,7 @@ class invite_tracker(commands.Cog):
             for invite in invs_before:
                 if invite.uses < self.find_invite_by_code(invs_after, invite.code).uses:
                     eme.add_field(name="Used invite",
-                                  value=f"Inviter: {invite.inviter.mention} (`{invite.inviter}` | ` {str(invite.inviter.id)} )`\nCode: `{invite.code} `\nUses: ` {str(invite.uses)}", inline=False)
+                                  value=f"Inviter: {invite.inviter.mention} (`{invite.inviter}` | `{str(invite.inviter.id)}`)\nCode: `{invite.code}`\nUses: ` {str(invite.uses)} `", inline=False)
         except:
             pass
         await logs.send(embed=eme)
@@ -76,7 +76,7 @@ class invite_tracker(commands.Cog):
             for invite in invs_before:
                 if invite.uses > self.find_invite_by_code(invs_after, invite.code).uses:
                     eme.add_field(name="Used invite",
-                                  value=f"Inviter: {invite.inviter.mention} (`{invite.inviter}` | ` {str(invite.inviter.id)} )`\nCode: `{invite.code} `\nUses: ` {str(invite.uses)}", inline=False)
+                                  value=f"Inviter: {invite.inviter.mention} (`{invite.inviter}` | `{str(invite.inviter.id)}`)\nCode: `{invite.code}`\nUses: ` {str(invite.uses)} `", inline=False)
         except:
             pass
         await logs.send(embed=eme)

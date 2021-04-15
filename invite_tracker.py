@@ -25,7 +25,6 @@ class invite_tracker(commands.Cog):
         self.bot = bot
         self.logs_channel = config["logs-channel-id"]
         self.version = "1.0.0"
-        self.bot.config = config
 
         self.invites = {}
         bot.loop.create_task(self.load())

@@ -53,15 +53,14 @@ class invite_tracker(commands.Cog):
         try:
             invs_before_join = self.invites[member.guild.id]
             invs_after_join = await member.guild.invites()
+            self.invites[member.guild.id] = invs_after_join
             for invite in invs_before_join:
-                if invite.uses < find_invite_by_code(invites_after_join, invite.code).uses:
+                if invite.uses < self.find_invite_by_code(invites_after_join, invite.code).uses:
                     eme.add_field(name="Used invite",
                                   value=f"Inviter: {invite.inviter.mention} (`{invite.inviter}` | ` {str(invite.inviter.id)} )`\nCode: `{invite.code} `\nUses: ` {str(invite.uses)}", inline=False)
         except:
             pass
         await logs.send(embed=eme)
-        self.invites[member.guild.id] = invs_after_join
-        return
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
@@ -73,15 +72,14 @@ class invite_tracker(commands.Cog):
         try:
             invs_before_rem = self.invites[member.guild.id]
             invs_after_rem = await member.guild.invites()
+            self.invites[member.guild.id] = invs_after_rem
             for invite in invs_before_rem:
-                if invite.uses > find_invite_by_code(invites_after_rem, invite.code).uses:
+                if invite.uses > self.find_invite_by_code(invites_after_rem, invite.code).uses:
                     eme.add_field(name="Used invite",
                                   value=f"Inviter: {invite.inviter.mention} (`{invite.inviter}` | ` {str(invite.inviter.id)} )`\nCode: `{invite.code} `\nUses: ` {str(invite.uses)}", inline=False)
         except:
             pass
         await logs.send(embed=eme)
-        self.invites[member.guild.id] = await member.guild.invites()
-        return
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild):

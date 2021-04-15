@@ -32,7 +32,7 @@ class invite_tracker(commands.Cog):
     async def load(self):
         await self.bot.wait_until_ready()
         # load the invites
-        for guild in bot.guilds:
+        for guild in self.bot.guilds:
             self.invites[guild.id] = await guild.invites()
 
     def find_invite_by_code(self, inv_list, code):

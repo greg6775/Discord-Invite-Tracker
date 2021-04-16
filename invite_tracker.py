@@ -95,11 +95,6 @@ class invite_tracker(commands.Cog):
         except:
             pass
 
-    # @commands.guild_only()
-    # @has_permissions(ban_members=True)
-    # async def update(self, ctx):
-    #     """Update your cog"""
-    #     #
 
 def setup(bot):
     bot.add_cog(invite_tracker(bot))
